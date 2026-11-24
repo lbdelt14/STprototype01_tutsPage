@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Elegí los tutoriales</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+/* Layout: sala de proyección oscura; una ficha por gesto con sus tomas en loop, barra fija con el nombre y el progreso */
+:root{
+  --bg:#0c0a10; --panel:#17131d; --line:#2e2735; --ink:#f1e9dd; --ash:#a1978e;
+  --red:#e50914; --amber:#ffb23e; --mint:#7fe0c0;
+  --c-abru:#ff6fa8; --c-coco:#5cc8ff; --c-nico:#ffb23e; --c-cami:#8ee06a;
+  --display:"Silkscreen","Courier New",monospace; --body:"Inter",system-ui,sans-serif;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,.px{font-family:var(--display);letter-spacing:.04em;text-wrap:balance}
+button,input,select{font:600 14px var(--body)}
+button{cursor:pointer;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+/* login */
+#gate{min-height:80vh;display:grid;place-items:center}
+.gatebox{width:min(420px,100%);display:grid;gap:16px;padding-block:32px}
+.gatebox h1{font-size:clamp(28px,7vw,40px);margin:0;color:var(--red);line-height:1}
+.gatebox p{margin:0;color:var(--ash)}
+.who{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.who button{font:700 18px var(--display);padding:16px 8px;border-width:2px;text-transform:uppercase}
+.who button[aria-pressed="true"]{border-color:var(--pc);color:var(--pc);background:color-mix(in srgb,var(--pc) 14%,var(--panel))}
+#pw{width:100%;padding:12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+#enter{background:var(--red);border-color:var(--red);color:#fff;font:700 16px var(--display);padding:12px}
+#gateErr{color:#ff8c8c;min-height:1.4em}
+
+/* portal */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+header h1{margin:0;font-size:20px}
+header h1 b{color:var(--me)}
+#prog{font:700 13px var(--display);color:var(--ash)}
+#status{font-size:13px;color:var(--mint);margin-left:auto}
+#status.warn{color:#ff8c8c}
+nav{display:flex;flex-wrap:wrap;gap:6px;padding-block:12px}
+nav a{color:var(--ash);text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:3px 10px;font-size:12px}
+nav a:hover{color:var(--ink)}
+.intro{color:var(--ash);max-width:65ch;margin:4px 0 8px}
+section.game>h2{font-size:22px;color:var(--amber);margin:28px 0 6px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.gest{margin:14px 0 26px}
+.gest h3{margin:0;font-size:15px}
+.gest p{margin:0 0 10px;color:var(--ash);font-size:13px}
+.takes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:12px}
+.take{background:var(--panel);border:2px solid var(--line);border-radius:8px;overflow:hidden;padding:0;text-align:left;display:block;width:100%}
+.vid{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:#000}
+.vid img{position:absolute;left:0;top:0;width:400%;height:200%;max-width:none;transform:translate(calc(var(--fx,0) * -25%),calc(var(--fy,0) * -50%))}
+.bar{display:flex;align-items:center;gap:8px;padding:9px 10px}
+.bar .nm{flex:1;font-size:12px;color:var(--ash);font-weight:600}
+.bar .star{font:700 12px var(--display);color:var(--ash)}
+.take:hover{border-color:#4a4052}
+.take.chosen{border-color:var(--me)}
+.take.chosen .nm,.take.chosen .star{color:var(--me)}
+.dots{display:flex;gap:4px}
+.dot{font:700 10px var(--display);padding:2px 5px;border-radius:3px;color:#120e14;background:var(--pc)}
+
+/* resumen */
+#summary{margin:40px 0 60px;border-top:2px solid var(--red);padding-top:8px}
+.send{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0 16px}
+#copy{background:var(--red);border-color:var(--red);color:#fff;font:700 15px var(--display);padding:12px 16px}
+#copyMsg{color:var(--mint)}
+#copyTxt{width:100%;min-height:120px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px;font:12px monospace}
+#summary h2{color:var(--red);font-size:24px;margin:10px 0 4px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font:700 12px var(--display);color:var(--ash)}
+th.p{color:var(--pc)}
+td.agree{color:var(--mint)}
+.empty{color:#5d5560}
+@media (prefers-reduced-motion:reduce){.vid img{transition:none}}
+</style>
+
+<div id="gate">
+  <form class="gatebox" id="gateForm" autocomplete="off">
+    <h1>TUTORIALES</h1>
+    <p>Strange Thing · elegí qué video va en cada gesto del juego.</p>
+    <div class="who" id="who"></div>
+    <input id="pw" type="password" placeholder="Contraseña" aria-label="Contraseña">
+    <button id="enter" type="submit">ENTRAR</button>
+    <div id="gateErr" role="alert"></div>
+  </form>
+</div>
+
+<div id="portal" hidden>
+  <header>
+    <h1>PORTAL DE <b id="meName"></b></h1>
+    <span id="prog"></span>
+    <button id="out" type="button">Salir</button>
+    <span id="status"></span>
+  </header>
+  <p class="intro">Tocá el video que más te guste en cada gesto (se guarda en este navegador). Cuando termines, bajá hasta el final, tocá <b>COPIAR MIS ELECCIONES</b> y mandáselo a Nico por WhatsApp.</p>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+  <section id="summary">
+    <h2>TUS ELECCIONES</h2>
+    <p class="intro">Al lado, lo que tiene elegido Nico ahora. En verde: donde coinciden.</p>
+    <div class="send"><button id="copy" type="button">COPIAR MIS ELECCIONES</button><span id="copyMsg"></span></div>
+    <textarea id="copyTxt" readonly hidden aria-label="Tus elecciones"></textarea>
+    <div class="tbl"><table id="sumT"></table></div>
+  </section>
+</div>
+
+<script>
+(function(){
+const DATA = [{"folder": "correr", "game": "bosque (Correr)", "gesture": "trote en el lugar con el celu en el puño, braceo adelante / atrás", "takes": [{"tag": "solo_34_v2", "name": "1 persona · 3/4 · v2", "img": "sheets/correr__solo_34_v2.jpg"}, {"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/correr__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/correr__solo_side.jpg"}, {"tag": "solo_back_v2", "name": "1 persona · atrás · v2", "img": "sheets/correr__solo_back_v2.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/correr__solo_back.jpg"}, {"tag": "Arc", "name": "grupo · ArcStyle", "img": "sheets/correr__Arc.jpg"}, {"tag": "B", "name": "grupo · estilizada (B)", "img": "sheets/correr__B.jpg"}, {"tag": "A", "name": "grupo · real (A)", "img": "sheets/correr__A.jpg"}]}, {"folder": "trepar", "game": "bosque (trepar el barranco)", "gesture": "celu arriba y abajo con fuerza, como tirar de una soga", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/trepar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/trepar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/trepar__solo_back.jpg"}, {"tag": "Arc", "name": "grupo · ArcStyle", "img": "sheets/trepar__Arc.jpg"}, {"tag": "B", "name": "grupo · estilizada (B)", "img": "sheets/trepar__B.jpg"}, {"tag": "A", "name": "grupo · real (A)", "img": "sheets/trepar__A.jpg"}]}, {"folder": "soplete", "game": "bosque (soplete en la reja)", "gesture": "apuntar el celu a la tele como un soplete y mantener FUEGO", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/soplete__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/soplete__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/soplete__solo_back.jpg"}, {"tag": "Arc", "name": "grupo · ArcStyle", "img": "sheets/soplete__Arc.jpg"}, {"tag": "B", "name": "grupo · estilizada (B)", "img": "sheets/soplete__B.jpg"}, {"tag": "A", "name": "grupo · real (A)", "img": "sheets/soplete__A.jpg"}]}, {"folder": "empujar", "game": "bosque (empujar la reja)", "gesture": "celu hacia adelante con fuerza, como empujar una reja", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/empujar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/empujar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/empujar__solo_back.jpg"}]}, {"folder": "lab_caminar", "game": "Hawkins Lab", "gesture": "celu acostado, inclinarlo para caminar", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/lab_caminar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/lab_caminar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/lab_caminar__solo_back.jpg"}]}, {"folder": "lab_darvuelta", "game": "Hawkins Lab", "gesture": "dar vuelta el celu (pantalla hacia abajo) para abrir la grieta", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/lab_darvuelta__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/lab_darvuelta__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/lab_darvuelta__solo_back.jpg"}]}, {"folder": "laststand_disparar", "game": "Last Stand", "gesture": "celu como pistola, golpe de muñeca hacia arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/laststand_disparar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/laststand_disparar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/laststand_disparar__solo_back.jpg"}]}, {"folder": "laststand_recargar", "game": "Last Stand", "gesture": "punta del celu al piso y de vuelta arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/laststand_recargar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/laststand_recargar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/laststand_recargar__solo_back.jpg"}]}, {"folder": "containment_consola", "game": "Containment", "gesture": "dos manos con el celu acostado, palanca y botones con los pulgares (`_hands`)", "takes": [{"tag": "solo_hands", "name": "1 persona · manos", "img": "sheets/containment_consola__solo_hands.jpg"}]}, {"folder": "containment_vuelta360", "game": "Containment", "gesture": "vuelta de 360° con el celu para abrir la válvula", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/containment_vuelta360__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/containment_vuelta360__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/containment_vuelta360__solo_back.jpg"}]}, {"folder": "bike_pedalear", "game": "Bike Chase", "gesture": "celu apaisado como manubrio, pulgares alternando + inclinar como volante", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/bike_pedalear__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/bike_pedalear__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/bike_pedalear__solo_back.jpg"}]}, {"folder": "bike_willy", "game": "Bike Chase", "gesture": "tirón del celu hacia arriba (willy)", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/bike_willy__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/bike_willy__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/bike_willy__solo_back.jpg"}]}, {"folder": "longnight_consola", "game": "The Long Night", "gesture": "dos manos con el celu acostado, palanca, DASH y BOOST con los pulgares (`_hands`)", "takes": [{"tag": "solo_hands", "name": "1 persona · manos", "img": "sheets/longnight_consola__solo_hands.jpg"}]}, {"folder": "longnight_eleven", "game": "The Long Night", "gesture": "dar vuelta el celu para invocar a Eleven", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/longnight_eleven__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/longnight_eleven__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/longnight_eleven__solo_back.jpg"}]}, {"folder": "pepi_joystick", "game": "Pepi", "gesture": "dos manos con el celu acostado como joystick (`_hands`; sin captura propia de Pepi todavía)", "takes": [{"tag": "solo_hands", "name": "1 persona · manos", "img": "sheets/pepi_joystick__solo_hands.jpg"}]}, {"folder": "cerebro_senal", "game": "Cerebro", "gesture": "inclinar la punta del celu arriba y abajo siguiendo la onda", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/cerebro_senal__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/cerebro_senal__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/cerebro_senal__solo_back.jpg"}]}, {"folder": "cerebro_sintonia", "game": "Cerebro", "gesture": "rolar el celu (frecuencia) e inclinarlo (amplitud)", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/cerebro_sintonia__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/cerebro_sintonia__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/cerebro_sintonia__solo_back.jpg"}]}, {"folder": "cerebro_pared", "game": "Cerebro", "gesture": "apuntar a la letra y golpe de muñeca para elegirla", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/cerebro_pared__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/cerebro_pared__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/cerebro_pared__solo_back.jpg"}]}, {"folder": "kermesse_dardos", "game": "Kermesse · Balloon Darts", "gesture": "apuntar y deslizar el dedo hacia arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_dardos__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_dardos__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_dardos__solo_back.jpg"}]}, {"folder": "kermesse_campana", "game": "Kermesse · High Striker", "gesture": "bajar el celu de golpe como un martillo", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_campana__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_campana__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_campana__solo_back.jpg"}]}, {"folder": "kermesse_tiro", "game": "Kermesse · Shooting Gallery", "gesture": "celu como pistola, golpe de muñeca hacia arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_tiro__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_tiro__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_tiro__solo_back.jpg"}]}, {"folder": "kermesse_caballitos", "game": "Kermesse · Horse Derby", "gesture": "sacudir el celu fuerte", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_caballitos__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_caballitos__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_caballitos__solo_back.jpg"}]}, {"folder": "kermesse_laberinto", "game": "Kermesse · Wooden Labyrinth", "gesture": "celu acostado, inclinarlo", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_laberinto__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_laberinto__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_laberinto__solo_back.jpg"}]}, {"folder": "kermesse_aplastabichos", "game": "Kermesse · Whack-a-Demo", "gesture": "girar la muñeca para elegir agujero y martillazo hacia abajo", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/kermesse_aplastabichos__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/kermesse_aplastabichos__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/kermesse_aplastabichos__solo_back.jpg"}]}, {"folder": "rootking_willy", "game": "The Root King · bici", "gesture": "tirón del celu hacia arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/rootking_willy__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/rootking_willy__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/rootking_willy__solo_back.jpg"}]}, {"folder": "rootking_palo", "game": "The Root King · hockey", "gesture": "arco amplio con el celu como un palo", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/rootking_palo__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/rootking_palo__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/rootking_palo__solo_back.jpg"}]}, {"folder": "rootking_soplete", "game": "The Root King · soplete", "gesture": "apuntar a los puntos débiles y mantener FUEGO", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/rootking_soplete__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/rootking_soplete__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/rootking_soplete__solo_back.jpg"}]}, {"folder": "rootking_revolver", "game": "The Root King · revólver", "gesture": "apuntar y golpe de muñeca hacia arriba", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/rootking_revolver__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/rootking_revolver__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/rootking_revolver__solo_back.jpg"}]}, {"folder": "rootking_esquivar", "game": "The Root King · esquivar", "gesture": "celu arriba = saltar, abajo = agacharse", "takes": [{"tag": "solo_34", "name": "1 persona · 3/4", "img": "sheets/rootking_esquivar__solo_34.jpg"}, {"tag": "solo_side", "name": "1 persona · costado", "img": "sheets/rootking_esquivar__solo_side.jpg"}, {"tag": "solo_back", "name": "1 persona · atrás", "img": "sheets/rootking_esquivar__solo_back.jpg"}]}];
+const NICO_FILE = {"bike_pedalear": "solo_34", "bike_willy": "solo_side", "cerebro_pared": "solo_34", "cerebro_senal": "solo_side", "cerebro_sintonia": "solo_34", "containment_consola": "solo_hands", "containment_vuelta360": "solo_34", "correr": "solo_side", "empujar": "solo_34", "kermesse_aplastabichos": "solo_34", "kermesse_caballitos": "solo_side", "kermesse_campana": "solo_side", "kermesse_laberinto": "solo_34", "kermesse_tiro": "solo_34", "laststand_disparar": "solo_34", "laststand_recargar": "solo_34", "longnight_consola": "solo_hands", "rootking_esquivar": "solo_34", "rootking_palo": "solo_side", "rootking_revolver": "solo_side", "rootking_soplete": "solo_side", "rootking_willy": "solo_side", "soplete": "solo_34", "trepar": "solo_back"};   // lo que ya estaba elegido en el juego (elegidos.txt)
+const PEOPLE = ['abru','coco','nico','cami'];
+const PW_HASH = 'c577df93dec81b8c845eca8aa2c53df33c2844e3afdbb117f05827aefe158e40';
+const $ = id => document.getElementById(id);
+const all = {abru:{},coco:{},nico:{},cami:{}};
+let me = null, db = null, saveT = null;
+const nameOf = {}; DATA.forEach(d => d.takes.forEach(t => nameOf[d.folder + '|' + t.tag] = t.name));
+
+// ---- login (candado simple del lado del navegador)
+let pick = null;
+try { pick = localStorage.getItem('tutos_me'); } catch(e) {}
+PEOPLE.forEach(p => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = p;
+  b.style.setProperty('--pc', 'var(--c-' + p + ')'); b.setAttribute('aria-pressed', 'false');
+  b.onclick = () => { pick = p; paintWho(); $('pw').focus(); };
+  $('who').appendChild(b);
+});
+function paintWho(){ [...$('who').children].forEach(b => b.setAttribute('aria-pressed', String(b.textContent === pick))); }
+paintWho();
+async function sha(s){ const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(h)].map(x => x.toString(16).padStart(2,'0')).join(''); }
+let unlocked = false; try { unlocked = localStorage.getItem('tutos_ok') === PW_HASH; } catch(e) {}
+if (unlocked && pick) enter(pick);
+$('gateForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!pick) { $('gateErr').textContent = 'Elegí tu nombre.'; return; }
+  if (await sha($('pw').value.trim().toLowerCase()) !== PW_HASH) { $('gateErr').textContent = 'Contraseña incorrecta.'; return; }
+  try { localStorage.setItem('tutos_ok', PW_HASH); localStorage.setItem('tutos_me', pick); } catch(e) {}
+  enter(pick);
+});
+$('out').onclick = () => { try { localStorage.removeItem('tutos_ok'); } catch(e) {} location.reload(); };
+
+// ---- portal
+function enter(p){
+  me = p;
+  $('gate').hidden = true; $('portal').hidden = false;
+  document.documentElement.style.setProperty('--me', 'var(--c-' + p + ')');
+  $('meName').textContent = p.toUpperCase();
+  try { const loc = JSON.parse(localStorage.getItem('tutos_picks_' + p) || 'null'); if (loc) all[p] = loc; } catch(e) {}
+  if (p !== 'nico' || !Object.keys(all.nico).length) all.nico = Object.assign({}, NICO_FILE);
+  build(); paint();
+}
+function build(){
+  const games = [...new Set(DATA.map(d => d.game))];
+  games.forEach((g, i) => {
+    const a = document.createElement('a'); a.href = '#g' + i; a.textContent = g; $('nav').appendChild(a);
+    const sec = document.createElement('section'); sec.className = 'game'; sec.id = 'g' + i;
+    const h = document.createElement('h2'); h.textContent = g; sec.appendChild(h);
+    DATA.filter(d => d.game === g).forEach(d => {
+      const gd = document.createElement('div'); gd.className = 'gest';
+      const h3 = document.createElement('h3'); h3.textContent = d.gesture || d.folder; gd.appendChild(h3);
+      const pp = document.createElement('p'); pp.textContent = d.folder + ' · ' + d.takes.length + ' tomas'; gd.appendChild(pp);
+      const grid = document.createElement('div'); grid.className = 'takes';
+      d.takes.forEach(t => {
+        const c = document.createElement('button'); c.type = 'button'; c.className = 'take'; c.dataset.folder = d.folder; c.dataset.tag = t.tag;
+        c.innerHTML = '<div class="vid"><img loading="lazy" alt=""></div><div class="bar"><span class="nm"></span><span class="dots"></span><span class="star"></span></div>';
+        c.querySelector('img').src = t.img; c.querySelector('img').alt = d.gesture + ' · ' + t.name;
+        c.querySelector('.nm').textContent = t.name;
+        c.onclick = () => { all[me][d.folder] = t.tag; paint(); save(); };
+        grid.appendChild(c);
+      });
+      gd.appendChild(grid); sec.appendChild(gd);
+    });
+    $('main').appendChild(sec);
+  });
+}
+function paint(){
+  document.querySelectorAll('.take').forEach(c => {
+    const f = c.dataset.folder, t = c.dataset.tag, mine = all[me][f] === t;
+    c.classList.toggle('chosen', mine);
+    c.setAttribute('aria-pressed', String(mine));
+    c.querySelector('.star').textContent = mine ? '★ ELEGIDO' : 'ELEGIR';
+    const dots = c.querySelector('.dots'); dots.textContent = '';
+    PEOPLE.filter(p => p !== me && all[p][f] === t).forEach(p => {
+      const s = document.createElement('span'); s.className = 'dot'; s.textContent = p.toUpperCase();
+      s.style.setProperty('--pc', 'var(--c-' + p + ')'); dots.appendChild(s);
+    });
+  });
+  const n = DATA.filter(d => all[me][d.folder]).length;
+  $('prog').textContent = n + ' / ' + DATA.length + ' ELEGIDOS';
+  summary();
+}
+function summary(){
+  const T = $('sumT'); T.textContent = '';
+  const hr = T.insertRow(); const th0 = document.createElement('th'); th0.textContent = 'GESTO'; hr.appendChild(th0);
+  const COLS = me === 'nico' ? ['nico'] : [me, 'nico'];
+  COLS.forEach(p => { const th = document.createElement('th'); th.className = 'p'; th.textContent = p.toUpperCase(); th.style.setProperty('--pc', 'var(--c-' + p + ')'); hr.appendChild(th); });
+  DATA.forEach(d => {
+    const r = T.insertRow();
+    const c0 = r.insertCell(); c0.textContent = d.game + ' · ' + (d.gesture || d.folder);
+    const votes = COLS.map(p => all[p][d.folder]).filter(Boolean);
+    const agree = votes.length > 1 && votes.every(v => v === votes[0]);
+    COLS.forEach(p => {
+      const td = r.insertCell(); const v = all[p][d.folder];
+      td.textContent = v ? (nameOf[d.folder + '|' + v] || v) : '—';
+      if (!v) td.className = 'empty'; else if (agree) td.className = 'agree';
+    });
+  });
+}
+
+// ---- guardado compartido
+function status(t, warn){ const s = $('status'); s.textContent = t; s.classList.toggle('warn', !!warn); }
+function save(){
+  try { localStorage.setItem('tutos_picks_' + me, JSON.stringify(all[me])); status('Guardado en este navegador'); }
+  catch(e) { status('No se puede guardar en este navegador: copiá tus elecciones antes de cerrar', true); }
+}
+function pickText(){
+  return 'TUTOS ' + me.toUpperCase() + '\n' + DATA.filter(d => all[me][d.folder]).map(d => d.folder + '=' + all[me][d.folder]).join('\n');
+}
+$('copy').onclick = async () => {
+  const t = pickText(), box = $('copyTxt');
+  box.value = t;
+  try { await navigator.clipboard.writeText(t); $('copyMsg').textContent = 'Copiado. Pegalo en WhatsApp a Nico.'; }
+  catch(e) { box.hidden = false; box.focus(); box.select(); $('copyMsg').textContent = 'Copiá el texto de abajo y mandáselo a Nico.'; }
+};
+
+// ---- loop de 8 cuadros a 8 fps
+let fr = 0;
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+  setInterval(() => { fr = (fr + 1) % 8; document.documentElement.style.setProperty('--fx', fr % 4); document.documentElement.style.setProperty('--fy', Math.floor(fr / 4)); }, 125);
+})();
+</script>
+
+</body></html>
