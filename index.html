@@ -130,6 +130,7 @@ PEOPLE.forEach(p => {
 function paintWho(){ [...$('who').children].forEach(b => b.setAttribute('aria-pressed', String(b.textContent === pick))); }
 paintWho();
 async function sha(s){ const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(h)].map(x => x.toString(16).padStart(2,'0')).join(''); }
+const RESET = {"coco": 1, "cami": 1};
 let unlocked = false; try { unlocked = localStorage.getItem('tutos_ok') === PW_HASH; } catch(e) {}
 if (unlocked && pick) enter(pick);
 $('gateForm').addEventListener('submit', async e => {
@@ -147,7 +148,9 @@ function enter(p){
   $('gate').hidden = true; $('portal').hidden = false;
   document.documentElement.style.setProperty('--me', 'var(--c-' + p + ')');
   $('meName').textContent = p.toUpperCase();
-  try { const loc = JSON.parse(localStorage.getItem('tutos_picks_' + p) || 'null'); if (loc) all[p] = loc; } catch(e) {}
+  try { const rk = 'tutos_reset_' + p, rv = String(RESET[p] || 0);
+    if (localStorage.getItem(rk) !== rv) { localStorage.removeItem('tutos_picks_' + p); localStorage.setItem(rk, rv); }
+    const loc = JSON.parse(localStorage.getItem('tutos_picks_' + p) || 'null'); if (loc) all[p] = loc; } catch(e) {}
   if (p !== 'nico' || !Object.keys(all.nico).length) all.nico = Object.assign({}, NICO_FILE);
   build(); paint();
 }
