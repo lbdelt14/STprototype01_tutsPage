@@ -8,6 +8,9 @@
   (function () {
     var btn = document.querySelector('.topbar__crt');
     if (!btn) return;
+    // CRT apagado por ahora (sin botón ni efecto): CRT_ENABLED = true lo vuelve
+    var CRT_ENABLED = false;
+    if (!CRT_ENABLED) { btn.style.display = 'none'; document.documentElement.classList.remove('crt'); return; }
     var glass = document.createElement('div'); glass.className = 'crt-glass'; glass.setAttribute('aria-hidden', 'true');
     document.body.appendChild(glass);
     var on = true;

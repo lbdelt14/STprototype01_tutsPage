@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/pitch.css?v=8">
 <!-- marks JS as available so the scroll-reveal hidden state applies only when JS runs -->
 <script>document.documentElement.classList.add('js');</script>
-<script src="js/pitch.js?v=2" defer></script>
+<script src="js/pitch.js?v=3" defer></script>
 </head>
 <body>
 <div id="pwGate" style="position:fixed;inset:0;z-index:99999;background:#07060a;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif"><form id="pwForm" style="display:flex;flex-direction:column;gap:12px;width:min(320px,86vw)"><b style="color:#e50914;letter-spacing:.12em;font-size:20px">STRANGE THING · PITCH</b><input id="pwIn" type="password" placeholder="Contraseña" autocomplete="current-password" style="padding:12px;border-radius:6px;border:1px solid #444;background:#15131a;color:#fff;font-size:16px"><button style="padding:12px;border:0;border-radius:6px;background:#e50914;color:#fff;font-weight:800;letter-spacing:.1em">ENTRAR</button><span id="pwMsg" style="color:#ff8080;font-size:13px"></span></form></div><script>(function(){const H="c577df93dec81b8c845eca8aa2c53df33c2844e3afdbb117f05827aefe158e40";const g=document.getElementById("pwGate");async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");}try{if(sessionStorage.getItem("pitch_ok")==="1"){g.remove();return;}}catch(e){}document.getElementById("pwForm").onsubmit=async function(e){e.preventDefault();if(await sha(document.getElementById("pwIn").value.trim().toLowerCase())===H){try{sessionStorage.setItem("pitch_ok","1")}catch(e){}g.remove();}else document.getElementById("pwMsg").textContent="Contraseña incorrecta";};})();</script>
