@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STRANGEVERSE — Playable Prototype Pitch</title>
+<meta name="description" content="A Stranger Things party game you play with the phone already in your pocket. Playable prototype pitch.">
+<link rel="icon" type="image/png" href="img/ui/favicon.png">
+<link rel="stylesheet" href="css/pitch.css?v=8">
+<!-- marks JS as available so the scroll-reveal hidden state applies only when JS runs -->
+<script>document.documentElement.classList.add('js');</script>
+<script src="js/pitch.js?v=2" defer></script>
+</head>
+<body>
+<div id="pwGate" style="position:fixed;inset:0;z-index:99999;background:#07060a;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif"><form id="pwForm" style="display:flex;flex-direction:column;gap:12px;width:min(320px,86vw)"><b style="color:#e50914;letter-spacing:.12em;font-size:20px">STRANGE THING · PITCH</b><input id="pwIn" type="password" placeholder="Contraseña" autocomplete="current-password" style="padding:12px;border-radius:6px;border:1px solid #444;background:#15131a;color:#fff;font-size:16px"><button style="padding:12px;border:0;border-radius:6px;background:#e50914;color:#fff;font-weight:800;letter-spacing:.1em">ENTRAR</button><span id="pwMsg" style="color:#ff8080;font-size:13px"></span></form></div><script>(function(){const H="c577df93dec81b8c845eca8aa2c53df33c2844e3afdbb117f05827aefe158e40";const g=document.getElementById("pwGate");async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");}try{if(sessionStorage.getItem("pitch_ok")==="1"){g.remove();return;}}catch(e){}document.getElementById("pwForm").onsubmit=async function(e){e.preventDefault();if(await sha(document.getElementById("pwIn").value.trim().toLowerCase())===H){try{sessionStorage.setItem("pitch_ok","1")}catch(e){}g.remove();}else document.getElementById("pwMsg").textContent="Contraseña incorrecta";};})();</script>
+
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <a class="topbar__id" href="#s00">STRANGEVERSE <span>/</span> PROTOTYPE PITCH</a>
+  <div class="topbar__end">
+  <div class="topbar__right">
+  <nav class="topbar__nav" aria-label="Sections">
+    <a href="#s00">HOME</a><a href="#idea">IDEA</a><a href="#s01">01</a><a href="#s02">02</a><a href="#s03">03</a><a href="#s04">04</a>
+    <a href="#s05">05</a><a href="#s06">06</a><a href="#s07">07</a><a href="#s08">08</a><a href="#s09">09</a>
+  </nav>
+  <!-- cartelito: título de la sección en pantalla (lo completa js/pitch.js; HOME en la portada) -->
+  <span class="topbar__here" aria-live="polite">HOME</span>
+  </div>
+  <!-- botón del efecto CRT de tubo: un tele chiquito con su lucecita de encendido -->
+  <button class="topbar__crt" type="button" aria-pressed="false" title="CRT tube effect on / off"><span class="crt-ico" aria-hidden="true"><i></i></span><span class="crt-txt">CRT</span><span class="crt-led" aria-hidden="true"></span></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== 00 · HERO ===== -->
+<section id="s00" class="hero" aria-label="Introduction">
+  <a class="hero__media" href="img/hero/jugando_frente.webp" tabindex="-1" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 900px)" srcset="img/hero/jugando_frente_900.webp">
+      <img src="img/hero/jugando_frente.webp" width="1672" height="941" alt="" style="object-position: center 35%">
+    </picture>
+  </a>
+  <div class="hero__vhs">REC <span class="rec">●</span> PROTOTYPE BUILD — UE 5.6</div>
+  <div class="wrap hero__content">
+    <img class="hero__logo" src="img/logo/strangeverse.png" width="1040" height="365" alt="Inside the Strangeverse">
+    <p class="kicker">PLAYABLE PROTOTYPE — PROPOSAL FOR NETFLIX GAMES</p>
+    <h1 class="byod" aria-label="Bring your own device"><span><b>B</b>RING</span> <span><b>Y</b>OUR</span> <span><b>O</b>WN</span> <span><b>D</b>EVICE.</span></h1>
+    <p class="lead hero__sub">A Stranger Things party game you play with the phone already in your pocket. Scan a QR code, type your name, and the phone's gyroscope turns it into a motion controller: swing, shake, tilt and aim your way through Hawkins. The prototype runs today.</p>
+    <ul class="chips">
+      <li>CLOUD GAMING</li><li>1–4 PLAYERS</li><li>PHONE = CONTROLLER</li><li>NETFLIX APP</li>
+    </ul>
+  </div>
+  <p class="hero__caption">PHOTO — FOUR PLAYERS, FOUR PHONES, MID-GESTURE</p>
+</section>
+
+<!-- ===== LA IDEA (sin número en la barra: el cartelito de arriba dice THE IDEA) ===== -->
+<section id="idea" class="section idea">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text reveal">
+      <div class="sechead">
+        <p class="kicker">THE IDEA</p>
+        <h2>ONE STORY. EVERY ERA OF GAMES.</h2>
+      </div>
+      <!-- recuadro de vista previa de los chips de géneros (lo maneja js/pitch.js) -->
+      <figure class="idea__peek" aria-live="polite">
+        <div class="idea__frame"><img alt="" hidden><span class="idea__hint">HOVER A GENRE TO SEE IT</span></div>
+        <figcaption></figcaption>
+      </figure>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">Our proposal is a spin-off story of the series, alongside the animated season <em>Stranger Things: Tales from '85</em>. As the story unfolds, it links one game to the next: every rift opens onto a different kind of game from a different era of play.</p>
+      <p>A pixel-art overworld, a light-gun shooter, a radio puzzle, a carnival of fair games, a horde survivor, a final boss: genres people grew up with, revived with the phone as the controller.</p>
+      <p><strong>Co-op and competitive:</strong> the party plays every game together, but every game is also scored. Friends team up to beat the world and compete for the top spot while the story moves forward.</p>
+      <p><strong>Points that buy things:</strong> every game pays out points, and they add up to each player's final score. That score is also a currency for props: spent along the run or at the end of it (when exactly is still to be decided). See <a href="#s09">Replayability</a>.</p>
+      <ul class="chips idea__eras" aria-label="Kinds of games">
+        <!-- al pasar el mouse (o tocar / enfocar) cada chip muestra su imagen en el recuadro de la izquierda:
+             data-peek = imagen, data-cap = texto. Para usar otra referencia, cambiar data-peek -->
+        <li tabindex="0" data-peek="img/sec/s05_overworld.jpg" data-cap="A map you ride between games: our pixel-art Hawkins.">8-BIT OVERWORLD</li><li tabindex="0" data-peek="img/sec/s07_04_laststand.jpg" data-cap="Point and shoot at the screen: Last Stand, with the phone as the pistol.">LIGHT-GUN ARCADE</li><li tabindex="0" data-peek="img/sec/s07_05_cerebro.jpg" data-cap="Tune and match signals together: Cerebro.">RADIO PUZZLE</li><li tabindex="0" data-peek="img/sec/s07_03b_derby.jpg" data-cap="Fair stalls, one gesture each: the Kermesse horse derby.">CARNIVAL GAMES</li><li tabindex="0" data-peek="img/sec/s07_ln_boss.jpg" data-cap="Auto-attack, move with one thumb, outlast the waves: The Long Night.">HORDE SURVIVOR</li><li tabindex="0" data-peek="img/sec/s04_finisher.jpg" data-cap="Four players, four gestures, one beat: The Root King.">BOSS FIGHT</li>
+      </ul>
+      <!-- clásicos que homenajeamos (referencia de qué tipo de juego es cada uno) -->
+      <p class="idea__refs"><span>Nods to the classics:</span> Super Mario Bros. 3 (the world map), Time Crisis (light-gun), Binary Land (mirrored mazes), WarioWare and Mario Party (fair games), Vampire Survivors (horde survival), Punch-Out!! (the boss fight).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 01 · CINEMA INTO PLAY ===== -->
+<section id="s01" class="section">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">01</span>
+        <p class="kicker">01 · CUTSCENE + GAMEPLAY</p>
+        <h2>THE CUT ENDS. YOUR HANDS ARE ALREADY MOVING.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">It is a Netflix world, so it should feel directed. The prologue opens on a cinematic chase, then drops to slow motion and hands the scene to the players: shake to run. Chapters open with a camera move, the boss gets his own camera, and the ending shatters the screen into the next dimension.</p>
+      <p><strong>Why:</strong> the cut-to-play hand-off is where a viewer becomes a player. We keep cutscenes short and always end them on a prompt.</p>
+    </div>
+
+    <figure class="strip span-12 reveal">
+      <p class="strip__title">PROLOGUE</p>
+      <ol class="strip__frames">
+        <li><a href="img/full/s06_a1_cut.jpg"><img src="img/sec/s06_a1_cut.jpg" width="640" height="360" loading="lazy" alt="Low angle: three Demogorgons on the forest path"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_a2_cut.jpg"><img src="img/sec/s06_a2_cut.jpg" width="640" height="360" loading="lazy" alt="Letterboxed shot: the kids run toward the camera, creatures behind"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_a3_cut.jpg"><img src="img/sec/s06_a3_cut.jpg" width="640" height="360" loading="lazy" alt="Letterboxed wide shot: four kids running, Demogorgons chasing"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_a4_prompt.jpg"><img src="img/sec/s06_a4_prompt.jpg" width="640" height="360" loading="lazy" alt="Slow motion with the prompt: HURRY!!! shake it like you're running"></a><span class="is-prompt">HINT</span></li>
+        <li><a href="img/full/s06_a5_play.jpg"><img src="img/sec/s06_a5_play.jpg" width="640" height="360" loading="lazy" alt="Gameplay: the four kids run up the path, shake meters at MAX"></a><span class="is-play">PLAY ▶</span></li>
+      </ol>
+      <figcaption>FIG. 10 — PROLOGUE: THREE CUTS, ONE HINT, THEN YOU RUN</figcaption>
+    </figure>
+
+    <figure class="strip span-12 reveal">
+      <p class="strip__title">INTRO &amp; ENDING</p>
+      <ol class="strip__frames">
+        <li><a href="img/full/s06_b1_title.jpg"><img src="img/sec/s06_b1_title.jpg" width="640" height="360" loading="lazy" alt="Stranger Things title card with drifting shards"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_b2_shatter.jpg"><img src="img/sec/s06_b2_shatter.jpg" width="640" height="360" loading="lazy" alt="The title shatters into a storm of shards in front of the rift"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_b3_rift.jpg"><img src="img/sec/s06_b3_rift.jpg" width="640" height="360" loading="lazy" alt="The rift in the Hawkins Lab corridor"></a><span>CUT</span></li>
+        <li><a href="img/full/s06_b4_touch.jpg"><img src="img/sec/s06_b4_touch.jpg" width="640" height="360" loading="lazy" alt="The four kids face the rift: TOUCH THE RIFT, tap the rift on your phone"></a><span class="is-prompt">HINT</span></li>
+        <li><a href="img/full/s06_b5_shattered.jpg"><img src="img/sec/s06_b5_shattered.jpg" width="640" height="360" loading="lazy" alt="SHATTERED DIMENSION! title over cracked glass"></a><span>CUT</span></li>
+      </ol>
+      <figcaption>FIG. 11 — THE TITLE SHATTERS INTO THE RIFT; TOUCHING THE RIFT SHATTERS THE DIMENSION</figcaption>
+    </figure>
+
+    <figure class="span-12 reveal">
+      <a class="shot" href="img/full/s06_bosscam.jpg"><span class="tag">THE ROOT KING</span><img src="img/sec/s06_bosscam.jpg" width="1600" height="900" loading="lazy" alt="Boss camera: the Root King towers over a player with a SHOOT! prompt"></a>
+      <figcaption>FIG. 12 — BOSS CAMERA: THE ROOT KING</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 02 · THE PROTOTYPE ===== -->
+<section id="s02" class="section band">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">02</span>
+        <p class="kicker">02 · THE PROTOTYPE</p>
+        <h2>IT ALREADY RUNS.</h2>
+      </div>
+      <p class="lead">This is not a concept deck. Everything on this page is a capture from a build that runs today in Unreal Engine 5.6: a full run of games on a map of Hawkins, cinematics that hand off to play, a final boss, and a hub that points beyond Hawkins.</p>
+      <p>We built the hard part first: phones as motion controllers on an ordinary TV, with players joining in seconds. The rest of this page shows what that unlocks.</p>
+    </div>
+    <figure class="col-media mosaic reveal">
+      <div class="mosaic__grid">
+        <a class="shot" href="img/full/s01_bike.jpg"><span class="tag">BIKE CHASE</span><img src="img/sec/s01_bike.jpg" width="960" height="540" alt="Four kids on bikes at the start line of the bike chase, a big GO! on screen"></a>
+        <a class="shot" href="img/full/s01_rootking.jpg"><span class="tag">THE ROOT KING</span><img src="img/sec/s01_rootking.jpg" width="960" height="540" alt="The Root King boss taking damage, two PERFECT! hits from the players"></a>
+        <a class="shot" href="img/full/s01_longnight.jpg"><span class="tag">THE LONG NIGHT</span><img src="img/sec/s01_longnight.jpg" width="960" height="540" alt="Pixel-art survival mode at night, a lightning storm hitting the Pumpkin Head boss"></a>
+        <a class="shot" href="img/full/s01_lab.jpg"><span class="tag">HAWKINS LAB</span><img src="img/sec/s01_lab.jpg" width="960" height="540" alt="Four mirrored mazes, Hawkins Lab above and the Upside Down below, rift sealed"></a>
+      </div>
+      <figcaption>FIG. 01 — IN-GAME CAPTURES FROM THE CURRENT BUILD</figcaption>
+    </figure>
+    <dl class="stats reveal">
+      <div><dt>7+1</dt><dd>PLAYABLE STOPS ON THE MAP + A BONUS FAIR</dd></div>
+      <div><dt>1–4</dt><dd>PLAYERS, CO-OP AND VERSUS</dd></div>
+      <div><dt>0</dt><dd>CONTROLLERS, APPS OR ACCOUNTS</dd></div>
+      <div><dt>&lt;20 ms</dt><dd>TYPICAL LATENCY ON LOCAL <span class="nowrap">WI-FI</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== 03 · BRING YOUR OWN DEVICE ===== -->
+<section id="s03" class="section">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">03</span>
+        <p class="kicker">03 · BYOD</p>
+        <h2>THE CONTROLLER IS ALREADY IN THE ROOM.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">Party games die at the controller count. Ours starts from the one device every guest brings: their phone. No pads to buy, pair or charge. The TV, laptop or tablet only displays; all input comes from the phones.</p>
+      <p><strong>Why it fits Netflix:</strong> the audience is already on the couch with a phone in hand. The game opens in the phone's browser, so there is nothing to install before the fun starts.</p>
+      <p><strong>Trade-off:</strong> a phone has no sticks or triggers. We design for it instead of around it: big readable gestures, one-thumb touch, vibration as feedback, and a phone screen that reshapes itself for every game.</p>
+    </div>
+    <figure class="span-8 fill reveal">
+      <a class="shot" href="img/full/s02_tv.jpg"><img src="img/sec/s02_tv.jpg" width="1600" height="900" loading="lazy" alt="Four friends in a living room playing in front of a TV, each holding a phone"></a>
+      <figcaption>FIG. 02 — PHOTO — THE TV ONLY DISPLAYS. THE PHONES DO THE REST.</figcaption>
+    </figure>
+    <figure class="span-4 fill reveal">
+      <a class="shot shot--tall" href="img/full/s02_phone.jpg"><span class="tag">TORCH MODE</span><img src="img/sec/s02_phone.jpg" width="753" height="941" loading="lazy" alt="A hand holding a phone that shows the real torch controller: HOLD DOWN to burn"></a>
+      <figcaption>FIG. 03 — COMPOSITE — REAL PHONE UI ON PHOTO</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 04 · SCAN TO JOIN ===== -->
+<section id="s04" class="section band">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">04</span>
+        <p class="kicker">04 · QR JOIN</p>
+        <h2>SCAN. TYPE YOUR NAME. YOU'RE IN.</h2>
+      </div>
+      <p class="lead">The TV shows one QR code per seat. Point your camera at it and your phone becomes that player's controller. You type your own name, and it appears on screen over your character.</p>
+      <p>Late to the party? The codes stay available from the pause screen of every game, so a friend can join or reconnect mid-run without restarting anything.</p>
+      <p><strong>Why:</strong> the join flow is the first ten seconds of the product. It has to work for the person who has never held a gamepad.</p>
+    </div>
+    <figure class="col-phone align-end reveal">
+      <a class="phone" href="img/sec/s03_phone_name.jpg"><img src="img/sec/s03_phone_name.jpg" width="540" height="484" alt="The phone's own name-entry screen: TYPE YOUR NAME with an on-screen keyboard"></a>
+      <figcaption>FIG. 04 — PHONE SCREEN, RENDERED FROM THE CONTROLLER PAGE: TYPE YOUR NAME</figcaption>
+    </figure>
+    <ol class="steps reveal">
+      <li><span class="steps__n">01</span><h3>SCAN</h3><p>Open your camera. One code per seat, P1 to P4.</p></li>
+      <li><span class="steps__n">02</span><h3>NAME</h3><p>Type your name on the phone. No account, no app.</p></li>
+      <li><span class="steps__n">03</span><h3>PLAY</h3><p>Your phone turns into the controller for whatever game is next.</p></li>
+    </ol>
+    <figure class="span-8 reveal">
+      <div class="tv"><a class="tv__screen" href="img/full/s03_hub_qr.jpg"><img src="img/sec/s03_hub_qr.jpg" width="1600" height="900" loading="lazy" alt="The hub screen: Inside the Strangeverse logo and four QR codes, one per player"></a></div>
+      <figcaption>FIG. 05 — HUB SCREEN: ONE QR PER PLAYER (CAPTURE; QR CODES AND CURRENT NETFLIX GAMES LOGO COMPOSITED)</figcaption>
+    </figure>
+    <figure class="span-4 align-start reveal">
+      <a class="shot" href="img/full/s03_pause.jpg"><span class="tag">PAUSE — JOIN OR RECONNECT</span><img src="img/sec/s03_pause.jpg" width="1200" height="675" loading="lazy" alt="Pause menu over the bike race with four QR codes under it: join or reconnect"></a>
+      <figcaption>FIG. 06 — MID-GAME JOIN: THE PAUSE MENU KEEPS THE CODES ON SCREEN</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- VHS tracking line between acts -->
+<hr class="tracking">
+
+<!-- ===== 05 · PLAY WITH YOUR BODY ===== -->
+<section id="s05" class="section">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">05</span>
+        <p class="kicker">05 · GYROSCOPE &amp; GESTURE</p>
+        <h2>YOU DON'T PRESS SWING. YOU SWING.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">Every phone has a gyroscope and an accelerometer. We read both, so the verb on screen is the verb in your arm. The game tells each player how to hold the phone, then asks for a move anyone can do on the first try.</p>
+      <p><strong>Why:</strong> gestures are legible across the room. Watching your friends is half of a party game, and nobody needs to learn a button layout.</p>
+      <p><strong>Trade-off:</strong> motion is tiring and imprecise if overused. Games alternate big gestures with calm thumb play, and every prompt is timed generously.</p>
+    </div>
+    <figure class="span-12 reveal">
+      <a class="shot" href="img/full/s04_finisher.jpg"><span class="tag">THE ROOT KING</span><img src="img/sec/s04_finisher.jpg" width="1600" height="900" loading="lazy" alt="The Root King finisher: four prompts at once, WHEELIE, SWING, BURN and SHOOT"></a>
+      <figcaption>FIG. 07 — THE ROOT KING, FINISHER: FOUR PLAYERS, FOUR DIFFERENT GESTURES, ONE BEAT</figcaption>
+    </figure>
+
+    <!-- gesture grid: verb / what the hand does / game -->
+    <ul class="gestures span-12">
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g1_shake.jpg"><img src="img/sec/s04_g1_shake.jpg" width="800" height="450" loading="lazy" alt="Prompt: HURRY!!! Phone in hand, at your side: shake it like you're running"></a>
+        <h3>SHAKE</h3><p class="gesture__hand">Phone at your side, shake it like you're running.</p><span class="chip">PROLOGUE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g2_torch.jpg"><img src="img/sec/s04_g2_torch.jpg" width="800" height="450" loading="lazy" alt="Prompt: FIRE! Point your phone at the gate and hold the screen down"></a>
+        <h3>AIM &amp; HOLD</h3><p class="gesture__hand">Point the phone like a torch and hold to burn.</p><span class="chip">PROLOGUE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g3_push.jpg"><img src="img/sec/s04_g3_push.jpg" width="800" height="450" loading="lazy" alt="Prompt: PUSH! Shove your phone forward hard, like pushing a door open"></a>
+        <h3>PUSH</h3><p class="gesture__hand">Shove the phone forward to force the gate.</p><span class="chip">PROLOGUE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g4_wheelie.jpg"><img src="img/sec/s04_g4_wheelie.jpg" width="800" height="450" loading="lazy" alt="Prompt: JUMP! Flick your phone up to pop a wheelie"></a>
+        <h3>FLICK UP</h3><p class="gesture__hand">Hold it like handlebars. Flick up to pop a wheelie.</p><span class="chip">BIKE CHASE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g5_pistol.jpg"><img src="img/sec/s04_g5_pistol.jpg" width="800" height="450" loading="lazy" alt="Last Stand intro: hold your phone like a pistol, top of the phone points at the TV"></a>
+        <h3>POINT &amp; FLICK</h3><p class="gesture__hand">Hold it like a pistol. Flick your wrist to fire.</p><span class="chip">LAST STAND</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g6_smash.jpg"><img src="img/sec/s04_g6_smash.jpg" width="800" height="450" loading="lazy" alt="High Striker title card: raise the phone behind your head, then smash down like a hammer"></a>
+        <h3>SMASH</h3><p class="gesture__hand">Raise it behind your head and bring the hammer down.</p><span class="chip">KERMESSE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g7_tilt.jpg"><img src="img/sec/s04_g7_tilt.jpg" width="800" height="450" loading="lazy" alt="Two wooden tilt mazes side by side, one per player"></a>
+        <h3>TILT</h3><p class="gesture__hand">Lay it flat and tilt to roll the ball through the maze.</p><span class="chip">KERMESSE</span></li>
+      <li class="gesture reveal"><a class="shot" href="img/full/s04_g8_spin.jpg"><img src="img/sec/s04_g8_spin.jpg" width="800" height="450" loading="lazy" alt="Containment tutorial: roll or rotate, turn it like a wheel"></a>
+        <h3>SPIN 360°</h3><p class="gesture__hand">Roll the phone to turn a pipe. Spin a full turn to open the valve.</p><span class="chip">CONTAINMENT</span></li>
+    </ul>
+    <p class="footnote span-12">ALSO IN THE BUILD — SWING LIKE A HOCKEY STICK · PULL-UP TO CLIMB · ROLL TO TUNE A RADIO · FLIP THE PHONE FOR A TEAM SPECIAL · SHAKE TO REVIVE A FRIEND</p>
+  </div>
+</section>
+
+<!-- ===== 06 · ONE RUN, ONE MAP ===== -->
+<section id="s06" class="section band">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">06</span>
+        <p class="kicker">06 · STRUCTURE</p>
+        <h2>A RUN OF CHAPTERS. HAWKINS IS THE MAP.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">The game is a linear run: a string of short chapters, each a different way to play, ending at a boss. Between chapters the party rides across a pixel-art map of Hawkins, 1985. A detour off the road leads to a bonus level: the Kermesse, a fair hidden in the woods.</p>
+      <p>The map is not a menu dressed up; it is the breath between games, where the group sees how far it has come and what is next.</p>
+      <p><strong>Hidden places are not only for competing.</strong> Next to the Kermesse, a corner of the field unlocks as a place to sit back and listen. On the overworld it shows up as a pixel-art cassette player: chill, lo-fi music over a Stranger Things backdrop, rain on the window, and a faint tape hiss so you know it is playing from a cassette.</p>
+      <p>The music is collected. Some cassettes unlock as the run goes on; others are hidden inside the games, placed somewhere hard to reach: in the Bike Chase you have to earn it, like the hidden collectibles of a Kirby game. Each cassette is one song: popular tracks of the era (licences to be negotiated) and the soundtrack of our own games.</p>
+      <p><strong>Why linear:</strong> a party needs a start, an escalation and an ending in one sitting. The map gives that arc a place.</p>
+    </div>
+  </div>
+  <figure class="bleed reveal">
+    <a class="bleed__img" href="img/full/s05_overworld.jpg"><img src="img/sec/s05_overworld.jpg" width="1920" height="1080" loading="lazy" alt="Pixel-art overworld map of Hawkins, Indiana 1985, with the stops from the bike chase to the Root King"></a>
+    <figcaption class="wrap">FIG. 08 — OVERWORLD: FROM THE BIKE CHASE TO THE ROOT KING (EARLIER BUILD; THE KERMESSE NOW SITS ON A BONUS DETOUR)</figcaption>
+  </figure>
+  <div class="wrap grid">
+    <ol class="route span-12 reveal" aria-label="The run, in order">
+      <li><b>01</b> BIKE CHASE</li>
+      <li><b>02</b> PROLOGUE <span class="route__bonus">BONUS DETOUR · KERMESSE</span></li>
+      <li><b>03</b> LAST STAND</li><li><b>04</b> CEREBRO</li><li><b>05</b> CONTAINMENT</li>
+      <li class="is-soon"><b>06</b> HAWKINS LAB <span class="route__soon">COMING SOON</span></li>
+      <li><b>07</b> THE LONG NIGHT</li><li><b>08</b> THE ROOT KING</li>
+    </ol>
+    <div class="options span-12">
+      <article class="option reveal">
+        <span class="option__label">OPTION A</span>
+        <a class="shot" href="img/full/s05_opt_story.jpg"><img src="img/sec/s05_opt_story.jpg" width="960" height="540" loading="lazy" alt="The overworld map with the party parked at Containment, four of eight played"></a>
+        <h3>STORY RUN</h3>
+        <p>Ride the map in order. Each stop unlocks the next and the run ends at the boss.</p>
+        <p class="tradeoff">TRADE-OFF: one fixed path; best for a full session.</p>
+      </article>
+      <article class="option reveal">
+        <span class="option__label">OPTION B</span>
+        <a class="shot" href="img/full/s05_opt_pick.jpg"><img src="img/sec/s05_opt_pick.jpg" width="960" height="540" loading="lazy" alt="Choose your game menu with chapter cards: Bike Chase, Prologue, Kermesse, Last Stand, Cerebro"></a>
+        <h3>PICK A GAME</h3>
+        <p>Jump straight to any chapter from the phone. Good for a quick round or a rematch.</p>
+        <p class="tradeoff">TRADE-OFF: no arc; best when time is short.</p>
+      </article>
+      <figure class="option option--aside reveal">
+        <span class="option__label">TRANSITION</span>
+        <a class="shot" href="img/full/s05_launch.jpg"><img src="img/sec/s05_launch.jpg" width="960" height="540" loading="lazy" alt="Close-up of the map as the camera dives toward the Kermesse stop"></a>
+        <figcaption>FIG. 09 — THE CAMERA DIVES INTO THE MAP TO START A CHAPTER</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 · THE GAMES ===== -->
+<section id="s07" class="section">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">07</span>
+        <p class="kicker">07 · WHAT'S PLAYABLE</p>
+        <h2>EVERY STOP PLAYS DIFFERENTLY.</h2>
+      </div>
+      <p class="lead">Each chapter reconfigures the phone into a new controller. All captures below are from the current build.</p>
+    </div>
+
+    <!-- game grid: index / title / pitch / PHONE: line -->
+    <ul class="games span-12">
+      <li class="game reveal"><a class="shot" href="img/full/s07_01_bike.jpg"><img src="img/sec/s07_01_bike.jpg" width="800" height="450" loading="lazy" alt="Bike chase: four riders on a forest road, P1 to P4 positions"></a>
+        <span class="game__i">01</span><h3>BIKE CHASE</h3><p>Race the swarm out of the woods.</p><p class="game__phone">PHONE: handlebars; thumbs pedal, tilt steers, flick up to jump.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_02_prologue.jpg"><img src="img/sec/s07_02_prologue.jpg" width="800" height="450" loading="lazy" alt="Prologue: the kids run up the path, a Demogorgon close behind"></a>
+        <span class="game__i">02</span><h3>PROLOGUE</h3><p>Run, climb and burn your way to the lab gate.</p><p class="game__phone">PHONE: shake, pull-up, torch, push.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_04_laststand.jpg"><img src="img/sec/s07_04_laststand.jpg" width="800" height="450" loading="lazy" alt="Last Stand: a creature bursts out of a hole, target ring around it"></a>
+        <span class="game__i">03</span><h3>LAST STAND</h3><p>Hold the line with Hopper's revolver.</p><p class="game__phone">PHONE: a pistol; flick to fire, snap down to reload.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_05_cerebro.jpg"><img src="img/sec/s07_05_cerebro.jpg" width="800" height="450" loading="lazy" alt="Cerebro: three signal channels, players matching the waveform"></a>
+        <span class="game__i">04</span><h3>CEREBRO</h3><p>Ride the signal together and decode the message.</p><p class="game__phone">PHONE: tilt and roll to match the wave.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_06_containment.jpg"><img src="img/sec/s07_06_containment.jpg" width="800" height="450" loading="lazy" alt="Containment: pipe grid with goo flowing from the lab tank"></a>
+        <span class="game__i">05</span><h3>CONTAINMENT</h3><p>Route the goo before the tank spills.</p><p class="game__phone">PHONE: stick to move, roll to rotate, spin to open the valve.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_07_lab.jpg"><img src="img/sec/s07_07_lab.jpg" width="800" height="450" loading="lazy" alt="Hawkins Lab: four mirrored mazes, the lab above and the Upside Down below"></a>
+        <span class="game__i">06</span><h3>HAWKINS LAB</h3><p>Two kids, two worlds, one phone moves both. Built and playable; shown as COMING SOON on the map for now.</p><p class="game__phone">PHONE: a tray you tilt; mirrored maze.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_08_rootking.jpg"><img src="img/sec/s07_08_rootking.jpg" width="800" height="450" loading="lazy" alt="The Root King, round 3: a player on a bike misses a hit"></a>
+        <span class="game__i">08</span><h3>THE ROOT KING</h3><p>Final boss. Four kids, one monster, team quick-time.</p><p class="game__phone">PHONE: wheelie, swing, burn, shoot on the beat.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_03_kermesse.jpg"><img src="img/sec/s07_03_kermesse.jpg" width="800" height="450" loading="lazy" alt="Kermesse shooting gallery: ducks and cans on shelves, two crosshairs"></a>
+        <span class="game__i">BONUS</span><h3>KERMESSE</h3><p>Six fair games at a fair hidden in the woods, off the main road.</p><p class="game__phone">PHONE: darts, hammer, pistol, gallop, tilt maze.</p></li>
+      <li class="game reveal"><a class="shot" href="img/full/s07_09_clown.jpg"><img src="img/sec/s07_09_clown.jpg" width="800" height="450" loading="lazy" alt="Clown maze: three players hide in a dark funhouse while the clown patrols"></a>
+        <span class="game__i">+</span><h3>CLOWN MAZE</h3><p>Co-op hide-and-escape in a funhouse.</p><p class="game__phone">PHONE: keys and a flashlight knob.</p></li>
+    </ul>
+
+    <!-- featured mode -->
+    <div class="feature span-12">
+      <div class="feature__text reveal">
+        <p class="kicker">FEATURED MODE · STOP 07</p>
+        <h3 class="h3-lg">THE LONG NIGHT</h3>
+        <p>A four-player survival mode in pixel art. Day, dusk, night: three waves and a boss. You move with one thumb and your weapon attacks on its own, so anyone can play. Level-ups arrive as cards on your phone. When a friend goes down, you shake to revive; when the team special is charged, everyone flips their phone at once.</p>
+      </div>
+      <figure class="feature__media reveal">
+        <div class="feature__grid">
+          <a class="shot feature__big" href="img/full/s07_ln_boss.jpg"><span class="tag">THE LONG NIGHT</span><img src="img/sec/s07_ln_boss.jpg" width="1200" height="675" loading="lazy" alt="The Long Night boss fight at night against the Pumpkin Head, four player cards at the bottom"></a>
+          <a class="shot" href="img/full/s07_ln_dusk.jpg"><img src="img/sec/s07_ln_dusk.jpg" width="640" height="360" loading="lazy" alt="DUSK title card: the sun is going down"></a>
+          <a class="shot" href="img/full/s07_ln_results.jpg"><img src="img/sec/s07_ln_results.jpg" width="640" height="360" loading="lazy" alt="DAWN results screen: you survived the long night, stats per player"></a>
+        </div>
+        <figcaption>FIG. 13 — THE LONG NIGHT: BOSS FIGHT, DUSK CARD, RESULTS</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CRITERION ===== -->
+<section class="criterion" aria-label="Criterion">
+  <div class="wrap reveal">
+    <p class="kicker">CRITERION</p>
+    <blockquote><p>IF A GUEST WHO HAS NEVER HELD A GAMEPAD CAN'T JOIN IN TEN SECONDS AND LAND A HIT IN THIRTY, THE DESIGN IS WRONG.</p></blockquote>
+    <p class="criterion__note">Every choice on this page was made against that test: the QR join, the typed name, the gestures, the short chapters.</p>
+  </div>
+</section>
+
+<!-- ===== 08 · INSIDE THE STRANGEVERSE ===== -->
+<section id="s08" class="section verse">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="verse__logo span-12 reveal">
+      <img src="img/logo/hub_stranger.png" width="1021" height="360" loading="lazy" alt="Inside the Strangeverse">
+      <img class="verse__tag" src="img/logo/hub_stranger_tag.png" width="1200" height="146" loading="lazy" alt="Where dimensions get strange">
+    </div>
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">08</span>
+        <p class="kicker">08 · THE WIDER VISION</p>
+        <h2>HAWKINS IS THE FIRST DOOR.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">The rift in Hawkins Lab does not only lead to the Upside Down. In the Strangeverse it is a door between Netflix worlds. The hub is a carousel of dimensions: Stranger Things is playable now; the others are placeholders for where the same phones, the same join flow and the same couch could go next.</p>
+      <p>The structure is already in the prototype: the run ends when the players touch the rift and the screen shatters. The proposal is that each shattered dimension opens a new world, with its own games built on the same controller.</p>
+      <p class="ask"><strong>What we are asking for:</strong> a conversation about which door to open second.</p>
+    </div>
+    <figure class="span-12 verse__tv reveal">
+      <div class="tv tv--glow"><a class="tv__screen" href="img/full/s08_hub.jpg"><img src="img/sec/s08_hub.jpg" width="1600" height="900" loading="lazy" alt="The hub carousel with Narnia centred, Squid Game and Charlie and the Chocolate Factory on either side"></a></div>
+      <figcaption>FIG. 14 — HUB CAROUSEL: SWIPE BETWEEN DIMENSIONS ON THE PHONE (CAPTURE; QR CODES AND CURRENT NETFLIX GAMES LOGO COMPOSITED)</figcaption>
+    </figure>
+
+    <!-- dimension cards: grey logo, colour on hover; status chip is plain text -->
+    <ul class="dims span-12 reveal">
+      <li class="dim is-live"><div class="dim__logo"><img src="img/logo/hub_stranger.png" width="1021" height="360" loading="lazy" alt="Stranger Things: Inside the Strangeverse"></div>
+        <span class="status status--live">PLAYABLE</span></li>
+      <li class="dim" tabindex="0"><div class="dim__logo"><img class="grey" src="img/logo/hub_squid_grey.png" width="800" height="438" loading="lazy" alt="Squid Game"><img class="colour" src="img/logo/hub_squid.png" width="800" height="438" loading="lazy" alt=""></div>
+        <span class="status status--soon">COMING SOON</span></li>
+      <li class="dim" tabindex="0"><div class="dim__logo"><img class="grey" src="img/logo/hub_narnia_grey.png" width="800" height="215" loading="lazy" alt="Narnia"><img class="colour" src="img/logo/hub_narnia.png" width="800" height="215" loading="lazy" alt=""></div>
+        <span class="status status--soon">COMING SOON</span></li>
+      <li class="dim" tabindex="0"><div class="dim__logo"><img class="grey" src="img/logo/hub_charlie_grey.png" width="800" height="496" loading="lazy" alt="Charlie and the Chocolate Factory"><img class="colour" src="img/logo/hub_charlie.png" width="800" height="496" loading="lazy" alt=""></div>
+        <span class="status status--soon">COMING SOON</span></li>
+    </ul>
+
+    <figure class="span-12 pair reveal">
+      <div class="pair__grid">
+        <a class="shot" href="img/full/s08_burst.jpg"><span class="tag">ENDING</span><img src="img/sec/s08_burst.jpg" width="960" height="540" loading="lazy" alt="The kids touch the rift and it bursts into light"></a>
+        <a class="shot" href="img/full/s08_shattered.jpg"><img src="img/sec/s08_shattered.jpg" width="960" height="540" loading="lazy" alt="SHATTERED DIMENSION! as the screen breaks into shards"></a>
+      </div>
+      <figcaption>FIG. 15 — ENDING: TOUCH THE RIFT, SHATTER THE DIMENSION</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- VHS tracking line between acts -->
+<hr class="tracking">
+
+<!-- ===== 09 · REPLAYABILITY ===== -->
+<section id="s09" class="section">
+  <!-- guirnalda arriba de la sección, en el aire de arriba (no corre el contenido) -->
+  <div class="lights lights--top" aria-hidden="true">
+    <svg class="lights__wire" viewBox="0 0 1600 30" preserveAspectRatio="none"><path d="M0 4 Q50 24 100 4 Q150 24 200 4 Q250 24 300 4 Q350 24 400 4 Q450 24 500 4 Q550 24 600 4 Q650 24 700 4 Q750 24 800 4 Q850 24 900 4 Q950 24 1000 4 Q1050 24 1100 4 Q1150 24 1200 4 Q1250 24 1300 4 Q1350 24 1400 4 Q1450 24 1500 4 Q1550 24 1600 4"/></svg>
+    <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+  </div>
+  <div class="wrap grid">
+    <div class="col-text col-text--wide reveal">
+      <div class="sechead"><span class="num" aria-hidden="true">09</span>
+        <p class="kicker">09 · REPLAYABILITY</p>
+        <h2>YOUR POINTS COME HOME WITH YOU.</h2>
+      </div>
+    </div>
+    <div class="col-side reveal">
+      <p class="lead">A party game gets played again when there is something to come back for. Every player keeps a profile under the name they type on the phone: points, what they bought and what they are wearing. Come back another night, or join halfway through a run, type the same name and pick up where you left off.</p>
+      <p><strong>The shop:</strong> when the run ends, a shop opens in the middle of the Hawkins map. Each player spends their own points on pixel-art accessories for their kid: binoculars, a walkie-talkie, a cap, a special jacket, a Hellfire Club tee, a bandana, a backpack, glasses.</p>
+      <p><strong>The wardrobe:</strong> from the same menu you put things on or take them off, one per slot (head, face, body, back, hand), or go back to the original outfit. Your kid stands on the TV, big, and you turn them around from the phone to see the whole look. Whatever you bought is yours, whichever kid you play.</p>
+      <p><strong>The walkman:</strong> unlock it somewhere in the run and the shop starts selling cassettes. Every tape you own can play on the main menu, on top of the ones you find hidden in the games and in the listening spot by the Kermesse.</p>
+      <p><strong>The art gallery:</strong> somewhere along the way the party unlocks a gallery, shown on the map as a pixel-art easel. Inside: sketches, character art, boards and maps from the making of the game. New pieces are added as the run goes on, and some are collectibles hidden in the games: posters, movie bills, comic covers and other '80s memorabilia, always nodding to the pop culture of the era, the same way the series does. You pick them up along the way, they go up on the gallery walls, and you can come back and look at them any time.</p>
+      <p><strong>Where they hide:</strong> each game hides one or two, tied to what you already do in it. In the Bike Chase one shows up at a hard moment and you have to pop a wheelie off a ramp to grab it in the air; at the Kermesse they are the rare prizes; in Last Stand you shoot something in the background that is not a monster. The gallery reads like a sticker album with empty slots and a small hint for each, some can be bought in the shop, duplicates sell for points, and players can trade with each other from the phone.</p>
+    </div>
+    <ol class="steps reveal">
+      <li><span class="steps__n">01</span><h3>PLAY</h3><p>Every game pays out points, per player, saved by name.</p></li>
+      <li><span class="steps__n">02</span><h3>SHOP</h3><p>At the end of the run, spend them on accessories and cassettes.</p></li>
+      <li><span class="steps__n">03</span><h3>WEAR &amp; LISTEN</h3><p>Dress your kid for the next run; play your tapes on the menu.</p></li>
+    </ol>
+    <p class="ask span-12 reveal"><strong>Still to decide:</strong> whether points are spent during the run or only at the end, and which moments unlock the walkman, the hidden tapes and the art gallery.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== CLOSE / FOOTER ===== -->
+<footer class="close">
+  <div class="wrap close__inner reveal">
+    <img class="close__logo" src="img/logo/strangeverse.png" width="1040" height="365" loading="lazy" alt="Inside the Strangeverse">
+    <h2 class="close__title">THE PROTOTYPE IS READY TO PLAY. BRING YOUR PHONE.</h2>
+    <p class="lead">Live demo available on request — a TV, a Wi-Fi network and up to four phones.</p>
+    <!-- EDIT: name / email -->
+    <p class="contact">CONTACT — [NAME] · [EMAIL]</p>
+  </div>
+  <p class="disclaimer wrap">Fan-made prototype for pitch purposes. Not affiliated with or endorsed by Netflix. Stranger Things, Squid Game and all related titles and marks belong to their respective owners. Photos illustrate the intended play setup.</p>
+</footer>
+
+</body>
+</html>
