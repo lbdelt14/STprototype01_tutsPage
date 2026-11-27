@@ -79,6 +79,9 @@ td.agree{color:var(--mint)}
 .empty{color:#5d5560}
 /* tomas de 12 cuadros: hoja de 4 x 3 */
 .vid img.r3{height:300%;transform:translate(calc(var(--fx3,0) * -25%),calc(var(--fy3,0) * -33.3333%))}
+/* tomas de 16 cuadros (4 x 4) y de 24 (4 x 6): las versiones con cuadros intermedios */
+.vid img.r4{height:400%;transform:translate(calc(var(--fx4,0) * -25%),calc(var(--fy4,0) * -25%))}
+.vid img.r6{height:600%;transform:translate(calc(var(--fx6,0) * -25%),calc(var(--fy6,0) * -16.6667%))}
 @media (prefers-reduced-motion:reduce){.vid img{transition:none}}
 </style>
 
@@ -186,7 +189,7 @@ function build(){
       d.takes.forEach(t => {
         const c = document.createElement('button'); c.type = 'button'; c.className = 'take'; c.dataset.folder = d.folder; c.dataset.tag = t.tag;
         c.innerHTML = '<div class="vid"><img loading="lazy" alt=""></div><div class="bar"><span class="nm"></span><span class="dots"></span><span class="star"></span></div>';
-        c.querySelector('img').onload = e => { const im = e.target; im.classList.toggle('r3', im.naturalHeight / im.naturalWidth > 0.35); };
+        c.querySelector('img').onload = e => { const im = e.target; const rows = Math.round(im.naturalHeight / im.naturalWidth / 0.140625); im.classList.toggle('r3', rows === 3); im.classList.toggle('r4', rows === 4); im.classList.toggle('r6', rows === 6); };
         c.querySelector('img').src = t.img; c.querySelector('img').alt = d.gesture + ' · ' + t.name;
         c.querySelector('.nm').textContent = t.name;
         c.onclick = () => { all[me][d.folder] = t.tag; paint(); save(); };
@@ -254,7 +257,9 @@ let fr = 0;
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
   // las de 12 cuadros van al doble de velocidad (16 fps): un tic cada 62,5 ms, las de 8 avanzan cada dos tics
   setInterval(() => { fr = (fr + 1) % 48; const st = document.documentElement.style, a = (fr >> 1) % 8, b = fr % 12;
-    st.setProperty('--fx', a % 4); st.setProperty('--fy', Math.floor(a / 4)); st.setProperty('--fx3', b % 4); st.setProperty('--fy3', Math.floor(b / 4)); }, 62.5);
+    st.setProperty('--fx', a % 4); st.setProperty('--fy', Math.floor(a / 4)); st.setProperty('--fx3', b % 4); st.setProperty('--fy3', Math.floor(b / 4));
+    const c = fr % 16, d = (fr * 2) % 24;   // 16 cuadros: 1 s como los de 8; 24: 0.75 s como los de 12
+    st.setProperty('--fx4', c % 4); st.setProperty('--fy4', Math.floor(c / 4)); st.setProperty('--fx6', d % 4); st.setProperty('--fy6', Math.floor(d / 4)); }, 62.5);
 })();
 </script>
 
