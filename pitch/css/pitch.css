@@ -661,6 +661,8 @@ html.crt .crt-glass::before { content: ''; position: absolute; inset: 0;
   will-change: transform; animation: crt-refresco 8s linear infinite; }
 html.crt .crt-glass::after { content: ''; position: absolute; inset: 0;
   background: radial-gradient(ellipse 60% 35% at 26% 16%, rgba(255,255,255,.07), transparent 70%); }
+/* sin la franja de refresco que baja (Nico: "sacale la linea crt") */
+html.crt .crt-glass::before { display: none; }
 @keyframes crt-refresco { from { transform: translateY(-39%); } to { transform: translateY(104%); } }
 /* botón de la barra: a la derecha de todo, como un teclita de tele vieja (pantallita + CRT + lucecita) */
 .topbar__end { display: flex; align-items: center; gap: 20px; }
