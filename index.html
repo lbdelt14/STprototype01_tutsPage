@@ -139,7 +139,7 @@ PEOPLE.forEach(p => {
 function paintWho(){ [...$('who').children].forEach(b => b.setAttribute('aria-pressed', String(b.textContent === pick))); }
 paintWho();
 async function sha(s){ const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(h)].map(x => x.toString(16).padStart(2,'0')).join(''); }
-const RESET = {"coco": 1, "cami": 1};
+const RESET = {"coco": 1, "cami": 1, "nico": 1};
 let unlocked = false; try { unlocked = localStorage.getItem('tutos_ok') === PW_HASH; } catch(e) {}
 if (unlocked && pick) enter(pick);
 $('gateForm').addEventListener('submit', async e => {
